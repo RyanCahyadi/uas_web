@@ -21,8 +21,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="head-t">
 				<ul class="card">
 					<!-- <li><a href="wishlist.html" ><i class="fa fa-heart" aria-hidden="true"></i>Wishlist</a></li> -->
-					<li><a href="login.html" ><i class="fa fa-user" aria-hidden="true"></i>Login</a></li>
-					<li><a href="register.html" ><i class="fa fa-arrow-right" aria-hidden="true"></i>Daftar</a></li>
+					<li><a href="login.php" ><i class="fa fa-user"></i>Login</a></li>
+					<li><a href="register.php" ><i class="fa fa-arrow-right"></i>Daftar</a></li>
 					<!-- <li><a href="about.html" ><i class="fa fa-file-text-o" aria-hidden="true"></i>Order History</a></li>
 					<li><a href="shipping.html" ><i class="fa fa-ship" aria-hidden="true"></i>Shipping</a></li> -->
 				</ul>	
@@ -39,7 +39,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</div> 
 						<div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
 							<ul class="nav navbar-nav ">
-								<li class=" active"><a href="index.html" class="hyper "><span>Home</span></a></li>	
+								<li><a href="index.html" class="hyper"><span>Home</span></a></li>	
 								<li><a href="contact.html" class="hyper"><span>Contact Us</span></a></li>
 							</ul>
 						</div>
