@@ -6,6 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Halaman dashboard user</title>
         <link href="dist/css/style.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="dist/css/datatables.css">
     </head>
     <body>
         <div id="main-wrapper">
@@ -62,14 +63,45 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="d-md-flex align-items-center">
                                         <div>
-                                            <h4 class="card-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem tenetur voluptatibus veritatis dolores reprehenderit modi, odit sed! Nihil delectus ut error vero. Corporis id quos repellat aliquam perferendis quasi vitae?</h4>
-                                        </div>
-                                    </div>
-                                </div>
+                                            <h4 class="card-title">Data user</h4>
+                                            <a href="tambah.php?page=user" class="btn btn-primary">Tambah</a>
+                                            <br /><br />
+                                            <div class="table-responsive">
+                                                <table class="table table-hover" id="table-user">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>No</th>
+                                                            <th>Nama</th>
+                                                            <th>Email</th>
+                                                            <th>No handhpne</th>
+                                                            <th class="mdi mdi-settings btn-lg""></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>1</td>
+                                                            <td>Rian</td>
+                                                            <td>rian.cahyadi@wgs.co.id</td>
+                                                            <td>081779525818</td>
+                                                            <td>
+                                                                <a href="" class="mdi mdi-grease-pencil btn-lg"></a>
+                                                                <a href="" class="mdi mdi-delete-circle btn-lg"></a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>2</td>
+                                                            <td>Salsabila</td>
+                                                            <td>salsabila.rizka@wgs.co.id</td>
+                                                            <td>081779525819</td>
+                                                            <td>
+                                                                <a href="" class="mdi mdi-grease-pencil btn-lg"></a>
+                                                                <a href="" class="mdi mdi-delete-circle btn-lg"></a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                             </div>
                         </div>
                     </div>
@@ -95,5 +127,9 @@
         <script src="assets/libs/flot/jquery.flot.crosshair.js"></script>
         <script src="assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
         <script src="dist/js/pages/chart/chart-page-init.js"></script> 
+        <script src="dist/js/datatables.js"></script>
+        <script>
+            $('#table-user').DataTable();
+        </script>
     </body>
 </html>

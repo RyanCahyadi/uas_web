@@ -18,10 +18,10 @@
             exit();
         } else {
             echo "<script> 
-                alert('Email atau password andal salah !');
+                alert('Email atau password anda salah !');
                 document.location.href = 'index.php';
             </script>";
         }
     }
-
+    
 ?>

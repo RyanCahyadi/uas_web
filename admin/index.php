@@ -50,9 +50,6 @@
                                     <div class="form-group">
                                         <div class="row m-t-20 p-t-20 border-top border-secondary">
                                             <div class="col-12">
-                                                <?php if (isset($error)){ ?>
-                                                <p style="color: red;">Email atau password salah</p>
-                                                <?php } ?>
                                                 <button class="btn btn-success float-right" type="submit" name="btn-login">Login</button>    
                                             </div>
                                         </div>
