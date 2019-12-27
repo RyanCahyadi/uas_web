@@ -1,3 +1,9 @@
+<?php
+    session_start();
+    $dataJson   = file_get_contents("http://localhost/kampus/uts_ecommerce/admin/api/getBarang.php");
+    $dataBarang = json_decode($dataJson, true);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -6,6 +12,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Halaman dashboard barang</title>
         <link href="dist/css/style.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="dist/css/datatables.css">
     </head>
     <body>
         <div id="main-wrapper">
@@ -36,7 +43,7 @@
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard_pesanan.php" aria-expanded="false"><i class="mdi mdi-cart"></i><span class="hide-menu">Pesanan</span></a></li>
                             <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-circle"></i><span class="hide-menu">Akun</span></a>
                                 <ul aria-expanded="false" class="collapse  first-level">
-                                    <li class="sidebar-item"><a href="form-wizard.html" class="sidebar-link"><i class="mdi mdi-logout"></i><span class="hide-menu">Logout</span></a></li>
+                                    <li class="sidebar-item"><a href="logout.php" class="sidebar-link"><i class="mdi mdi-logout"></i><span class="hide-menu">Logout</span></a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -62,13 +69,154 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="d-md-flex align-items-center">
-                                        <div>
-                                            <h4 class="card-title">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem tenetur voluptatibus veritatis dolores reprehenderit modi, odit sed! Nihil delectus ut error vero. Corporis id quos repellat aliquam perferendis quasi vitae?</h4>
+                            <div>
+                                <h4 class="card-title">Data barang</h4>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTambahBarang">Tambah</button>
+                                <?php if (isset($_SESSION['message'])): ?>
+                                <div class="alert alert-<?= $_SESSION['message_type']; ?>" style="margin-top: 10px;" id="alert">
+                                    <?= $_SESSION['message']; ?>
+                                    <?php unset($_SESSION['message']); ?>
+                                </div>
+                                <?php endif ?>
+                                <!-- Modal Tambah barang-->
+                                <div class="modal fade" id="modalTambahBarang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Tambah barang</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form action="http://localhost/kampus/uts_ecommerce/admin/api/addBarang.php" method="POST" enctype="multipart/form-data">
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <input type="text" name="nama_barang" class="form-control" placeholder="Masukan nama barang . . .">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="number" name="harga_barang" class="form-control" placeholder="Masukan harga barang . . .">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="number" name="stok_barang" class="form-control" placeholder="Masukan stok barang anda . . .">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <textarea name="deskripsi_barang" class="form-control" placeholder="Masukan deskripsi barang"></textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="">Gambar</label>
+                                                        <input type="file" name="gambar" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
+                                </div>
+                                <!-- End modal tambah barang -->
+                                <br /><br />
+                                <div class="table-responsive">
+                                    <table class="table table-hover" id="table-user">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Gambar</th>
+                                                <th>Nama barang</th>
+                                                <th>Harga barang</th>
+                                                <th>Stock barang</th>
+                                                <th>Deskripsi barang</th>
+                                                <th class="mdi mdi-settings btn-lg""></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                                $no = 1;
+                                                if (is_array($dataBarang)):
+                                                    foreach ($dataBarang['item'] as $key => $row):
+                                            ?>
+                                            <tr>
+                                                <td><?= $no++; ?></td>
+                                                <td><img src="dir/<?= $row['gambar']; ?>" width="75" height="75" class="img img-rounded"></td>
+                                                <td><?= $row['nama_barang']; ?></td>
+                                                <td> Rp. <?= number_format($row['harga_barang'], 2, ',', '.'); ?></td>
+                                                <td><?= $row['stok_barang']; ?></td>
+                                                <td><?= $row['deskripsi_barang']; ?></td>
+                                                <td>
+                                                    <a class="mdi mdi-grease-pencil btn-lg" data-toggle="modal" data-target="#modalEditBarang<?= $row['id']; ?>"></a>
+                                                    <a class="mdi mdi-delete-circle btn-lg" data-toggle="modal" data-target="#modalDeleteBarang<?= $row['id']; ?>"></a>
+                                                </td>
+                                            </tr>
+                                            
+                                            <!-- Modal delete -->
+                                            <div class="modal fade" id="modalDeleteBarang<?= $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <form action="http://localhost/kampus/uts_ecommerce/admin/api/deleteBarang.php" method="POST">
+                                                            <input type="hidden" value="<?= $row['id']; ?>" name="id">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Delete barang</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                            </div>
+                                                            <div class="modal-body">Apakah anda yakin ingin menghapus data ini ?</div>
+                                                            <div class="modal-footer">
+                                                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End modal delete -->
+
+                                            <!-- Modal Edit -->
+                                            <div class="modal fade" id="modalEditBarang<?= $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Edit barang</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <form action="http://localhost/kampus/uts_ecommerce/admin/api/updateBarang.php" method="POST" enctype="multipart/form-data">
+                                                            <div class="modal-body">
+                                                                <input type="hidden" name="id" value="<?= $row['id']; ?>">
+                                                                <div class="form-group">
+                                                                    <label for="">Nama barang</label>
+                                                                    <input type="text" name="nama_barang" class="form-control" value="<?= $row['nama_barang']; ?>">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="">Harga barang</label>
+                                                                    <input type="number" name="harga_barang" class="form-control" value="<?= $row['harga_barang']; ?>">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="">Jumlah barang</label>
+                                                                    <input type="number" name="stok_barang" class="form-control" value="<?= $row['stok_barang']; ?>">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="">Deskripsi barang</label>
+                                                                    <textarea name="deskripsi_barang" class="form-control" placeholder="Masukan deskripsi barang"><?= $row['deskripsi_barang'] ?></textarea>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="">Gambar</label><br />
+                                                                    <img src="dir/<?= $row['gambar']; ?>" width="100" height="100" class="img img-circle" id="gambar"><br /><br />
+                                                                    <input type="checkbox" name="check" id="ubah-gambar" value="true"> Checklist apabila ingin merubah gambar <br /><br />
+                                                                    <input type="file" name="gambar" class="form-control" id="lihatGambar">
+                                                                    <!-- <input type="file" name="gambar" class="form-control"> -->
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End modal tambah user -->
+                                            <?php endforeach ?>
+                                            <?php endif ?>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -95,5 +243,15 @@
         <script src="assets/libs/flot/jquery.flot.crosshair.js"></script>
         <script src="assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
         <script src="dist/js/pages/chart/chart-page-init.js"></script> 
+        <script src="dist/js/datatables.js"></script>
+        <script>
+            $('#table-user').DataTable();
+            $('#alert').ready(function() {
+                $('#alert').fadeOut(2000);
+            });
+            $('#ubah-gambar').click(function(){
+                $('#gambar').fadeOut(500);
+            });
+        </script>
     </body>
 </html>

@@ -21,6 +21,7 @@
             </div>
             <?php 
                 require 'function.php';
+                session_start();
 
                 if (isset($_POST['btn-login'])) {
                     loginAdmin($_POST);
@@ -30,6 +31,11 @@
                 <div class="auth-box bg-dark border-top border-secondary">
                     <div id="loginform">
                         <div class="text-center p-t-20 p-b-20">
+                            <?php if (isset($_SESSION['message'])): ?>
+                            <div class="alert alert-<?= $_SESSION['message_type']; ?>" id="alert">
+                                <?= $_SESSION['message']; ?>
+                            </div>
+                            <?php endif ?>
                             <span class="db"><img src="assets/images/logo.png" alt="logo" /></span>
                         </div>
                         <form class="form-horizontal m-t-20" id="loginform" action="" method="POST">
@@ -39,13 +45,13 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-email"></i></span>
                                         </div>
-                                        <input type="email" class="form-control form-control-lg" name="email" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1" required="">
+                                        <input type="email" class="form-control form-control-lg" name="email" id="email" placeholder="Email" required>
                                     </div>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text bg-warning text-white" id="basic-addon2"><i class="ti-pencil"></i></span>
                                         </div>
-                                        <input type="password" class="form-control form-control-lg" name="password" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" required="">
+                                        <input type="password" class="form-control form-control-lg" name="password" id="password" placeholder="Password" required>
                                     </div>
                                     <div class="form-group">
                                         <div class="row m-t-20 p-t-20 border-top border-secondary">
@@ -64,6 +70,11 @@
         <script src="assets/libs/jquery/dist/jquery.min.js"></script>
         <script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
         <script>
+
+            $('#alert').ready(function(){
+                $('#alert').fadeOut(2000);
+            });
+
             $('[data-toggle="tooltip"]').tooltip();
             $(".preloader").fadeOut();
             $('#to-recover').on("click", function() {

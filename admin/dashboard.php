@@ -36,7 +36,7 @@
                         <ul id="sidebarnav" class="p-t-30">
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard.php" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard_user.php" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">User</span></a></li>
-                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashbord_barang.php" aria-expanded="false"><i class="mdi mdi-briefcase"></i><span class="hide-menu">Barang</span></a></li>
+                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard_barang.php" aria-expanded="false"><i class="mdi mdi-briefcase"></i><span class="hide-menu">Barang</span></a></li>
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard_pesanan.php" aria-expanded="false"><i class="mdi mdi-cart"></i><span class="hide-menu">Pesanan</span></a></li>
                             <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-circle"></i><span class="hide-menu"><?= $_SESSION['login']; ?></span></a>
                                 <ul aria-expanded="false" class="collapse  first-level">
@@ -70,7 +70,14 @@
                                 <div class="card-body">
                                     <div class="d-md-flex align-items-center">
                                         <div>
-                                            <h4 class="card-title"><?= $_SESSION['login']; ?></h4>
+                                            <h4 class="card-title">
+                                                <?php if (isset($_SESSION['message'])): ?>
+                                                <div class="alert alert-<?= $_SESSION['message_type']; ?>" id="alert">
+                                                    <?= $_SESSION['message']. " " . $_SESSION['login']; ?>
+                                                    <?php unset($_SESSION['message']); ?>
+                                                </div>
+                                                <?php endif ?>
+                                            </h4>
                                         </div>
                                     </div>
                                 </div>
@@ -99,5 +106,10 @@
         <script src="assets/libs/flot/jquery.flot.crosshair.js"></script>
         <script src="assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
         <script src="dist/js/pages/chart/chart-page-init.js"></script> 
+        <script>
+            // $('#alert').ready(function() {
+            //     $('#alert').fadeOut(1000);
+            // });
+        </script>
     </body>
 </html>

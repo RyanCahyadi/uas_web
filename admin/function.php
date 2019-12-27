@@ -14,13 +14,18 @@
 
         if (mysqli_num_rows($result) == 1) {
             $_SESSION['login'] = "Admin";
+            $_SESSION['message'] = "Hello selamat datang";
+            $_SESSION['message_type'] = "success";
             header("Location: dashboard.php");
             exit();
         } else {
-            echo "<script> 
-                alert('Email atau password anda salah !');
-                document.location.href = 'index.php';
-            </script>";
+            $_SESSION['message'] = "Email atau password anda salah !";
+            $_SESSION['message_type'] = "danger";
+            header("Location:index.php");
+            // echo "<script> 
+            //     alert('Email atau password anda salah !');
+            //     document.location.href = 'index.php';
+            // </script>";
         }
     }
     
