@@ -41,7 +41,7 @@
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard_user.php" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">User</span></a></li>
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard_barang.php" aria-expanded="false"><i class="mdi mdi-briefcase"></i><span class="hide-menu">Barang</span></a></li>
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard_pesanan.php" aria-expanded="false"><i class="mdi mdi-cart"></i><span class="hide-menu">Pesanan</span></a></li>
-                            <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-circle"></i><span class="hide-menu">Akun</span></a>
+                            <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-circle"></i><span class="hide-menu"><?= $_SESSION['login']; ?></span></a>
                                 <ul aria-expanded="false" class="collapse  first-level">
                                     <li class="sidebar-item"><a href="logout.php" class="sidebar-link"><i class="mdi mdi-logout"></i><span class="hide-menu">Logout</span></a></li>
                                 </ul>
@@ -200,7 +200,7 @@
                                                                 <div class="form-group">
                                                                     <label for="">Gambar</label><br />
                                                                     <img src="dir/<?= $row['gambar']; ?>" width="100" height="100" class="img img-circle" id="gambar"><br /><br />
-                                                                    <input type="checkbox" name="check" id="ubah-gambar" value="true"> Checklist apabila ingin merubah gambar <br /><br />
+                                                                    <input type="checkbox" name="check" id="ubah-gambar"> Checklist apabila ingin merubah gambar <br /><br />
                                                                     <input type="file" name="gambar" class="form-control" id="lihatGambar">
                                                                     <!-- <input type="file" name="gambar" class="form-control"> -->
                                                                 </div>
@@ -249,9 +249,9 @@
             $('#alert').ready(function() {
                 $('#alert').fadeOut(2000);
             });
-            $('#ubah-gambar').click(function(){
-                $('#gambar').fadeOut(500);
-            });
+            // $('#ubah-gambar').click(function() {
+            //     $('#gambar').fadeOut(500);
+            // });
         </script>
     </body>
 </html>
