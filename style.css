@@ -1,0 +1,99 @@
+/*style halaman index*/
+
+.card p{
+  margin-top: -10px;
+  margin-bottom: 1px;
+}
+
+.carousel-inner{
+  margin-top: 16px;
+  /*border: 1px solid #6666;*/
+  height: 520px;
+}
+
+.slide{
+   background-position: 0% 60%;
+}
+
+.card{
+  border: 1px solid #3333;
+}
+
+.row .card:hover{
+  box-shadow: 2px 2px 2px rgba(0,0,0,0.8);
+  transform: scale(1.01);
+}
+
+.card img{
+  height: 200px;
+}
+
+.navbar li{
+  text-decoration-color: white;
+}
+
+.color{
+  height: 40px;
+}
+
+.copyright{
+  height: 50px;
+}
+
+
+
+
+
+/*style modal*/
+
+.modal-body img{
+  width: 255px;
+}
+
+.modal-body-all img{
+  width: 310px;
+}
+
+.modal-body-hoby img{
+  width: 400px;
+}
+
+.modal-body-home img{
+  width: 280px;
+}
+
+.modal-body-home-style img{
+  width: 370px;
+}
+
+
+/*// style modal-image-beli*/
+
+.modal-body-custom img{
+  width: 130px;
+}
+
+.modal-body-custom-pria img{
+  width: 145px;
+}
+
+/*style modal beli dan pesan*/
+
+.modal-style-market{
+  margin-left: 25%;
+  width: 40%;
+}
+
+.modal-style-mail{
+    margin-left: 63%;
+    width: 35%;
+}
+
+
+
+
+
+
+
+
+

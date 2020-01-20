@@ -1,0 +1,13 @@
+/*style halaman contact*/
+
+.container{
+  width: 40%;
+  margin-top: 2%;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+  padding: 30px;
+  background-position: center;
+}
+
+button{
+  width: 49%;
+}

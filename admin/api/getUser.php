@@ -14,7 +14,9 @@
                 'nama'          => $data['nama'],
                 'email'         => $data['email'],
                 'no_handphone'  => $data['no_handphone'],
-                'password'      => $data['password']
+                'password'      => $data['password'],
+                'tgl_lahir'     => $data['tgl_lahir'],
+                'jenis_kelamin' => $data['jenis_kelamin']
             );
         }
 

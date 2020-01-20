@@ -41,6 +41,7 @@
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard_user.php" aria-expanded="false"><i class="mdi mdi-account"></i><span class="hide-menu">User</span></a></li>
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard_barang.php" aria-expanded="false"><i class="mdi mdi-briefcase"></i><span class="hide-menu">Barang</span></a></li>
                             <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard_pesanan.php" aria-expanded="false"><i class="mdi mdi-cart"></i><span class="hide-menu">Pesanan</span></a></li>
+                            <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dashboard_feedback.php" aria-expanded="false"><i class="mdi mdi-alert"></i><span class="hide-menu">Feedback Customer</span></a></li>
                             <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-circle"></i><span class="hide-menu"><?= $_SESSION['login']; ?></span></a>
                                 <ul aria-expanded="false" class="collapse  first-level">
                                     <li class="sidebar-item"><a href="logout.php" class="sidebar-link"><i class="mdi mdi-logout"></i><span class="hide-menu">Logout</span></a></li>
@@ -70,7 +71,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div>
-                                <h4 class="card-title">Data barang</h4>
+                                <!-- <h4 class="card-title">Data barang</h4> -->
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTambahBarang">Tambah</button>
                                 <?php if (isset($_SESSION['message'])): ?>
                                 <div class="alert alert-<?= $_SESSION['message_type']; ?>" style="margin-top: 10px;" id="alert">
