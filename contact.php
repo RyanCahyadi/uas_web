@@ -30,7 +30,7 @@
         <?php endif ?>
         <h2 class="text-center">Hubungi kami</h2>
         <hr>
-         <form action="http://localhost/kampus/uts_ecommerce/admin/api/contact.php" method="post">
+         <form action="http://localhost/uas_web/admin/api/contact.php" method="post">
             <div class="form-group">
               <label for="email">Email address</label>
               <div class="input-group">

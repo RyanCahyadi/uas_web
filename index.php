@@ -1,6 +1,6 @@
 <?php
     session_start();
-    $dataJson   = file_get_contents("http://localhost/kampus/uts_ecommerce/admin/api/getBarang.php");
+    $dataJson   = file_get_contents("http://localhost/uas_web/admin/api/getBarang.php");
     $dataBarang = json_decode($dataJson, true);
 
 ?>
@@ -200,35 +200,36 @@
                   <hr />
                   <div class="row">
                     <div class="col-md-12">
-                      <form action="http://localhost/kampus/uts_ecommerce/admin/api/transaksiBarang.php" method="post">
+                      <form action="http://localhost/uas_web/admin/api/transaksiBarang.php" method="post">
                         <input type="hidden" value="<?= $row['nama_barang']; ?>" name="nama_barang">
                         <div class="form-group">
                           <label for="">Nama</label>
-                          <input type="text" name="nama" class="form-control" placeholder="Masukan nama anda . . ." value="<?php if (isset($_SESSION['nama'])){ echo $_SESSION['nama']; } ?>">
+                          <input type="text" name="nama_customer" class="form-control" placeholder="Masukan nama anda . . ." readonly value="<?php if (isset($_SESSION['nama'])){ echo $_SESSION['nama']; } ?>">
                         </div>
                         <div class="form-group">
                           <label for="">Email</label>
-                          <input type="email" name="email" class="form-control" placeholder="Masukan email anda . . ." value="<?php if (isset($_SESSION['email'])){ echo $_SESSION['email']; } ?>">
+                          <input type="email" name="email" class="form-control" placeholder="Masukan email anda . . ." readonly value="<?php if (isset($_SESSION['email'])){ echo $_SESSION['email']; } ?>">
                         </div>
                         <div class="form-group">
                           <label for="">No handphone</label>
-                          <input type="number" name="no_handphone" class="form-control" placeholder="Masukan no handphone anda . . ." value="<?php if (isset($_SESSION['no_handphone'])){ echo $_SESSION['no_handphone']; } ?>">
+                          <input type="number" name="no_handphone" class="form-control" placeholder="Masukan no handphone anda . . ." readonly value="<?php if (isset($_SESSION['no_handphone'])){ echo $_SESSION['no_handphone']; } ?>">
                         </div>
                         <div class="form-group">
                           <label for="">Quantity</label>
                           <input type="number" name="qty" class="form-control" placeholder="Masukan qty yang dibeli . . .">
                         </div>
+                        <input type="hidden" name="harga_barang" value="<?= $row['harga_barang']; ?>">
                         <div class="form-group">
                           <label for="">Metode pembayaran</label>
                           <select name="metode_pembayaran" id="" class="form-control">
                             <option value="">--Pilih metode pembayaran--</option>
-                            <option value="cash">Cash</option>
-                            <option value="transfer">Transfer</option>
+                            <option value="Cash">Cash</option>
+                            <option value="Transfer">Transfer</option>
                           </select>
                         </div>
                         <div class="form-group">
                           <label for="">Alamat</label>
-                          <textarea name="alamat" id="" cols="30" rows="10" class="form-control"></textarea>
+                          <textarea name="alamat" id="" cols="30" rows="10" class="form-control" placeholder="Masukan alamat anda . . ."></textarea>
                         </div>
                         <div class="modal-footer" style="border: none;">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Kembali</button>
@@ -244,10 +245,10 @@
         <!-- End Modal beli -->
           
       <!-- Modal pesan beli cariel -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <!-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-style-mail">
           <div class="modal-dialog" role="document">
-            <div class="modal-content"> <!-- style css -->
+            <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel"><p class="text-primary">Menunggu Pembayaran</p></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -267,7 +268,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
           <!-- End modal beli -->
           <?php endforeach ?>
         <?php endif ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 10, 2020 at 08:26 AM
+-- Generation Time: Jan 21, 2020 at 06:53 PM
 -- Server version: 10.1.39-MariaDB
 -- PHP Version: 7.3.5
 
@@ -40,6 +40,18 @@ CREATE TABLE `tbl_barang` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_contact`
+--
+
+CREATE TABLE `tbl_contact` (
+  `id` int(11) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_login`
 --
 
@@ -64,12 +76,26 @@ INSERT INTO `tbl_login` (`id`, `email`, `password`) VALUES
 
 CREATE TABLE `tbl_pesanan` (
   `id` int(11) NOT NULL,
-  `alamat` text NOT NULL,
   `qty` int(11) NOT NULL,
-  `metode_pembayaran` enum('transfer','cash') NOT NULL,
+  `grand_total` double NOT NULL,
+  `metode_pembayaran` enum('Transfer','Cash') NOT NULL,
+  `alamat` text NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `no_handphone` varchar(13) NOT NULL,
   `nama` varchar(50) NOT NULL,
   `nama_barang` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Triggers `tbl_pesanan`
+--
+DELIMITER $$
+CREATE TRIGGER `penjualan` AFTER INSERT ON `tbl_pesanan` FOR EACH ROW BEGIN
+	UPDATE tbl_barang SET stok_barang = stok_barang - NEW.qty
+    WHERE id = id;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -82,7 +108,9 @@ CREATE TABLE `tbl_registrasi` (
   `nama` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(256) NOT NULL,
-  `no_handphone` varchar(13) NOT NULL
+  `no_handphone` varchar(13) NOT NULL,
+  `tgl_lahir` date NOT NULL,
+  `jenis_kelamin` enum('Pria','Wanita') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -94,7 +122,13 @@ CREATE TABLE `tbl_registrasi` (
 --
 ALTER TABLE `tbl_barang`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nama_barang` (`nama_barang`);
+  ADD KEY `nama_barang` (`nama_barang`);
+
+--
+-- Indexes for table `tbl_contact`
+--
+ALTER TABLE `tbl_contact`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_login`
@@ -107,15 +141,15 @@ ALTER TABLE `tbl_login`
 --
 ALTER TABLE `tbl_pesanan`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nama` (`nama`),
-  ADD UNIQUE KEY `nama_barang` (`nama_barang`);
+  ADD KEY `nama` (`nama`),
+  ADD KEY `nama_barang` (`nama_barang`);
 
 --
 -- Indexes for table `tbl_registrasi`
 --
 ALTER TABLE `tbl_registrasi`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nama` (`nama`);
+  ADD KEY `nama` (`nama`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -125,7 +159,13 @@ ALTER TABLE `tbl_registrasi`
 -- AUTO_INCREMENT for table `tbl_barang`
 --
 ALTER TABLE `tbl_barang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `tbl_contact`
+--
+ALTER TABLE `tbl_contact`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_login`
@@ -137,13 +177,13 @@ ALTER TABLE `tbl_login`
 -- AUTO_INCREMENT for table `tbl_pesanan`
 --
 ALTER TABLE `tbl_pesanan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `tbl_registrasi`
 --
 ALTER TABLE `tbl_registrasi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables

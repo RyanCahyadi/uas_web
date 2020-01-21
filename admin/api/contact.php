@@ -25,6 +25,6 @@ $conn = mysqli_connect("localhost", "root", "", "db_ecommerce");
 
     echo json_encode($respon);
 
-    header("location:http://localhost/kampus/uts_ecommerce/contact.php");
+    header("location:http://localhost/uas_web/contact.php");
 
 ?>

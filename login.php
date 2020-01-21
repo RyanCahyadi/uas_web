@@ -29,7 +29,7 @@
       <?php endif ?>
       <h2 class="text-center">FORM LOGIN</h2>
       <hr>
-       <form action="http://localhost/kampus/uts_ecommerce/admin/api/loginUser.php" method="post">
+       <form action="http://localhost/uas_web/admin/api/loginUser.php" method="post">
           <div class="form-group">
             <label for="email">Email</label>
             <div class="input-group">

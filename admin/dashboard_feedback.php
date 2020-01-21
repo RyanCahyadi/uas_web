@@ -1,6 +1,6 @@
 <?php
     session_start();
-    $dataJson = file_get_contents("http://localhost/kampus/uts_ecommerce/admin/api/getFeedback.php");
+    $dataJson = file_get_contents("http://localhost/uas_web/admin/api/getFeedback.php");
     $dataUser = json_decode($dataJson, true);
 
 ?>
@@ -140,7 +140,7 @@
                                             <div class="modal fade" id="modalDeleteFeedback<?= $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
-                                                        <form action="http://localhost/kampus/uts_ecommerce/admin/api/deleteFeedback.php" method="POST">
+                                                        <form action="http://localhost/uas_web/admin/api/deleteFeedback.php" method="POST">
                                                             <input type="hidden" value="<?= $row['id']; ?>" name="id">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title" id="exampleModalLabel">Delete user</h5>

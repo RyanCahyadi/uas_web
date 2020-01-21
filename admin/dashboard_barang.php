@@ -1,6 +1,6 @@
 <?php
     session_start();
-    $dataJson   = file_get_contents("http://localhost/kampus/uts_ecommerce/admin/api/getBarang.php");
+    $dataJson   = file_get_contents("http://localhost/uas_web/admin/api/getBarang.php");
     $dataBarang = json_decode($dataJson, true);
 
 ?>
@@ -89,7 +89,7 @@
                                                 <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <form action="http://localhost/kampus/uts_ecommerce/admin/api/addBarang.php" method="POST" enctype="multipart/form-data">
+                                            <form action="http://localhost/uas_web/admin/api/addBarang.php" method="POST" enctype="multipart/form-data">
                                                 <div class="modal-body">
                                                     <div class="form-group">
                                                         <input type="text" name="nama_barang" class="form-control" placeholder="Masukan nama barang . . .">
@@ -153,7 +153,7 @@
                                             <div class="modal fade" id="modalDeleteBarang<?= $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
-                                                        <form action="http://localhost/kampus/uts_ecommerce/admin/api/deleteBarang.php" method="POST">
+                                                        <form action="http://localhost/uas_web/admin/api/deleteBarang.php" method="POST">
                                                             <input type="hidden" value="<?= $row['id']; ?>" name="id">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title" id="exampleModalLabel">Delete barang</h5>
@@ -179,7 +179,7 @@
                                                             <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
-                                                        <form action="http://localhost/kampus/uts_ecommerce/admin/api/updateBarang.php" method="POST" enctype="multipart/form-data">
+                                                        <form action="http://localhost/uas_web/admin/api/updateBarang.php" method="POST" enctype="multipart/form-data">
                                                             <div class="modal-body">
                                                                 <input type="hidden" name="id" value="<?= $row['id']; ?>">
                                                                 <div class="form-group">

@@ -31,7 +31,7 @@
         <?php endif ?>
         <h2 class="text-center">Register</h2>
         <hr>
-         <form action="http://localhost/kampus/uts_ecommerce/admin/api/register.php" method="post">
+         <form action="http://localhost/uas_web/admin/api/register.php" method="post">
             <div class="form-group">
               <label for="email">Email address</label>
               <div class="input-group">

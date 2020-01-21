@@ -1,6 +1,6 @@
 <?php
     session_start();
-    $dataJson = file_get_contents("http://localhost/kampus/uts_ecommerce/admin/api/getUser.php");
+    $dataJson = file_get_contents("http://localhost/uas_web/admin/api/getUser.php");
     $dataUser = json_decode($dataJson, true);
 
 ?>
@@ -90,7 +90,7 @@
                                                 <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
-                                            <form action="http://localhost/kampus/uts_ecommerce/admin/api/addUser.php" method="POST">
+                                            <form action="http://localhost/uas_web/admin/api/addUser.php" method="POST">
                                                 <div class="modal-body">
                                                     <div class="form-group">
                                                         <input type="text" name="nama" class="form-control" placeholder="Masukan nama anda . . .">
@@ -103,6 +103,16 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <input type="password" name="password" class="form-control" placeholder="Masukan password anda . . .">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="date" name="tgl_lahir" class="form-control">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <select name="jenis_kelamin" class="form-control">
+                                                            <option value="">--Pilih Jenis Kelamin--</option>
+                                                            <option value="Pria">Pria</option>
+                                                            <option value="Wanita">Wanita</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
@@ -152,7 +162,7 @@
                                             <div class="modal fade" id="modalDeleteUser<?= $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
-                                                        <form action="http://localhost/kampus/uts_ecommerce/admin/api/deleteUser.php" method="POST">
+                                                        <form action="http://localhost/uas_web/admin/api/deleteUser.php" method="POST">
                                                             <input type="hidden" value="<?= $row['id']; ?>" name="id">
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title" id="exampleModalLabel">Delete user</h5>
@@ -178,7 +188,7 @@
                                                             <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
-                                                        <form action="http://localhost/kampus/uts_ecommerce/admin/api/updateUser.php" method="POST">
+                                                        <form action="http://localhost/uas_web/admin/api/updateUser.php" method="POST">
                                                             <div class="modal-body">
                                                                 <input type="hidden" name="id" value="<?= $row['id']; ?>">
                                                                 <div class="form-group">
@@ -196,6 +206,22 @@
                                                                 <div class="form-group">
                                                                     <label for="password">Password</label>
                                                                     <input type="password" name="password" class="form-control" id="password" value="<?= $row['password']; ?>">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="tgl_lahir">Tanggal lahir</label>
+                                                                    <input type="date" name="tgl_lahir" class="form-control" id="password" value="<?= $row['tgl_lahir']; ?>">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="jenis_kelamin">Jenis kelamin</label>
+                                                                    <select name="jenis_kelamin" id="" class="form-control">
+                                                                        <?php if ($row['jenis_kelamin'] == "Wanita"): ?>
+                                                                        <option value="<?= $row['jenis_kelamin']; ?>"><?= $row['jenis_kelamin']; ?></option>
+                                                                        <option value="Pria">Pria</option>
+                                                                        <?php elseif ($row['jenis_kelamin'] == "Pria"): ?>
+                                                                        <option value="<?= $row['jenis_kelamin']; ?>"><?= $row['jenis_kelamin']; ?></option>
+                                                                        <option value="Wanita">Wanita</option>
+                                                                        <?php endif ?>
+                                                                    </select>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">

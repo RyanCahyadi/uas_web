@@ -11,7 +11,9 @@
             'nama'          => htmlspecialchars($_POST['nama']),
             'email'         => htmlspecialchars($_POST['email']),
             'no_handphone'  => htmlspecialchars($_POST['no_handphone']),
-            'password'      => sha1($_POST['password'])
+            'password'      => sha1($_POST['password']),
+            'tgl_lahir'     => htmlspecialchars($_POST['tgl_lahir']),
+            'jenis_kelamin' => htmlspecialchars($_POST['jenis_kelamin'])
         ];
 
     if ($dataUser['nama'] == null or $dataUser['email'] == null or $dataUser['no_handphone'] == null or $dataUser['password'] == null) {
@@ -21,7 +23,7 @@
             'item'      => "Data input not null"
         );
     } else {
-        $sql        = "INSERT INTO tbl_registrasi (nama, email, no_handphone, password) VALUES ('$dataUser[nama]', '$dataUser[email]', '$dataUser[no_handphone]', '$dataUser[password]')";
+        $sql        = "INSERT INTO tbl_registrasi (nama, email, no_handphone, password, tgl_lahir, jenis_kelamin) VALUES ('$dataUser[nama]', '$dataUser[email]', '$dataUser[no_handphone]', '$dataUser[password]', '$dataUser[tgl_lahir]', '$dataUser[jenis_kelamin]')";
         $result     = mysqli_query($conn, $sql);
         $item       = $dataUser;
 

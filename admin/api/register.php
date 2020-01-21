@@ -29,6 +29,6 @@ $conn = mysqli_connect("localhost", "root", "", "db_ecommerce");
 
     echo json_encode($respon);
 
-    header("location:http://localhost/kampus/uts_ecommerce/register.php");
+    header("Location: http://localhost/uas_web/register.php");
 
 ?>

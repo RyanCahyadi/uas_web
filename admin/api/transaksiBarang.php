@@ -9,10 +9,11 @@
     $dataTransaksi = 
         [
             'nama_barang'       => htmlspecialchars($_POST['nama_barang']),
-            'nama_customer'     => htmlspecialchars($_POST['nama']),
+            'nama_customer'     => htmlspecialchars($_POST['nama_customer']),
             'email'             => htmlspecialchars($_POST['email']),
             'no_handphone'      => htmlspecialchars($_POST['no_handphone']),
             'qty'               => htmlspecialchars($_POST['qty']),
+            'grand_total'       => htmlspecialchars($_POST['harga_barang']) * htmlspecialchars($_POST['qty']),
             'metode_pembayaran' => htmlspecialchars($_POST['metode_pembayaran']),
             'alamat'            => htmlspecialchars($_POST['alamat'])
         ];
@@ -26,25 +27,33 @@
             $_SESSION['message_type']   = "warning"
         );
 
-        header("Location: http://localhost/kampus/uts_ecommerce/login.php");
+        header("Location: http://localhost/uas_web/login.php");
 
     } else {
-        $sql        = "INSERT INTO tbl_pesanan (alamat, qty, metode_pembayaran, email, no_handphone, nama, nama_barang) VALUES ('$dataTransaksi[alamat]', '$dataTransaksi[qty]', '$dataTransaksi[metode_pembayaran]' , '$dataTransaksi[email]' , '$dataTransaksi[no_handphone]', '$dataTransaksi[nama_customer]', '$dataTransaksi[nama_barang]')";
+        $sql        = "INSERT INTO tbl_pesanan (nama_barang, nama, email, no_handphone, qty, grand_total, metode_pembayaran, alamat) VALUES 
+        ('$dataTransaksi[nama_barang]', '$dataTransaksi[nama_customer]', '$dataTransaksi[email]', '$dataTransaksi[no_handphone]', '$dataTransaksi[qty]', 
+        '$dataTransaksi[grand_total]', '$dataTransaksi[metode_pembayaran]', '$dataTransaksi[alamat]')";
         $result     = mysqli_query($conn, $sql);
         $item       = $dataTransaksi;
+
+        // if ($result) {
+        //     echo "Hello berhasil";
+        // } else {
+        //     echo mysqli_error($conn);
+        // }
 
         $respon = array(
             'message'   => "Success",
             'status'    => 200,
             'item'      => $dataTransaksi
         );
-        
-        //echo json_encode($respon);
+
+        // echo json_encode($respon);
 
         echo "
                 <script> 
                     alert('Permintaan anda akan kami proses, dan barang akan segera dikirim');
-                    document.location.href = 'http://localhost/kampus/uts_ecommerce/index.php';
+                    document.location.href = 'http://localhost/uas_web/index.php';
                 </script>
              ";
     }

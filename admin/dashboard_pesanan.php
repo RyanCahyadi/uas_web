@@ -1,7 +1,7 @@
 <?php
     session_start();
-    $dataJson   = file_get_contents("http://localhost/kampus/uts_ecommerce/admin/api/getBarang.php");
-    $dataBarang = json_decode($dataJson, true);
+    $dataJson   = file_get_contents("http://localhost/uas_web/admin/api/getPesanan.php");
+    $dataPesanan = json_decode($dataJson, true);
 
 ?>
 <!DOCTYPE html>
@@ -10,9 +10,18 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Halaman dashboard barang</title>
+        <title>Halaman dashboard pesanan</title>
         <link href="dist/css/style.min.css" rel="stylesheet">
         <link rel="stylesheet" href="dist/css/datatables.css">
+        <script type="text/javascript">
+            // function printContent(el){
+            //     var restorepage = document.body.innerHTML;
+            //     var printcontent = document.getElementById(el).innerHTML;
+            //     document.body.innerHTML = printcontent;
+            //     window.print();
+            //     document.body.innerHTML = restorepage;
+            // }
+        </script>
     </head>
     <body>
         <div id="main-wrapper">
@@ -72,7 +81,10 @@
                         <div class="col-md-12">
                             <div>
                                 <!-- <h4 class="card-title">Data Pesanan</h4> -->
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTambahBarang">Tambah</button>
+                                <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTambahBarang">Tambah</button> -->
+                                <!-- <button class="btn btn-linkedin" onclick="window.print()">Print</button> -->
+                                <a target="_blank" href="http://localhost/uas_web/admin/api/printPesanan.php" class="btn btn-linkedin">Print</a>
+                                <a target="_blank" href="http://localhost/uas_web/admin/api/reportPesanan.php" class="btn btn-success" style="color: white;">Excel</a>
                                 <?php if (isset($_SESSION['message'])): ?>
                                 <div class="alert alert-<?= $_SESSION['message_type']; ?>" style="margin-top: 10px;" id="alert">
                                     <?= $_SESSION['message']; ?>
@@ -80,7 +92,7 @@
                                 </div>
                                 <?php endif ?>
                                 <!-- Modal Tambah barang-->
-                                <div class="modal fade" id="modalTambahBarang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <!-- <div class="modal fade" id="modalTambahBarang" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -114,49 +126,57 @@
                                             </form>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <!-- End modal tambah barang -->
                                 <br /><br />
-                                <div class="table-responsive">
+                                <div class="table-responsive" id="table-responsive">
                                     <table class="table table-hover" id="table-user">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Nama pembeli</th>
+                                                <th>Nama customer</th>
                                                 <th>Nama barang</th>
-                                                <th>Alamat</th>
                                                 <th>Qty barang</th>
+                                                <!-- <th>Harga barang</th> -->
+                                                <th>Grand total</th>
                                                 <th>Metode pembayaran</th>
+                                                <th>Alamat</th>
+                                                <th>Email</th>
+                                                <th>No handphone</th>
                                                 <th class="mdi mdi-settings btn-lg""></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                                 $no = 1;
-                                                if (is_array($dataBarang)):
-                                                    foreach ($dataBarang['item'] as $key => $row):
+                                                if (is_array($dataPesanan)):
+                                                    foreach ($dataPesanan['item'] as $key => $row):
                                             ?>
                                             <tr>
                                                 <td><?= $no++; ?></td>
-                                                <td><img src="dir/<?= $row['gambar']; ?>" width="75" height="75" class="img img-rounded"></td>
+                                                <td><?= $row['nama_customer']; ?></td>
                                                 <td><?= $row['nama_barang']; ?></td>
-                                                <td> Rp. <?= number_format($row['harga_barang'], 2, ',', '.'); ?></td>
-                                                <td><?= $row['stok_barang']; ?></td>
-                                                <td><?= $row['deskripsi_barang']; ?></td>
+                                                <td><?= $row['qty_barang']; ?></td>
+                                                <!-- <td>Rp. <?= number_format($row['harga_barang'], 2, ',', '.'); ?></td> -->
+                                                <td>Rp. <?= number_format($row['grand_total'], 2, ',', '.'); ?></td>
+                                                <td><?= $row['metode_pembayaran']; ?></td>
+                                                <td><?= $row['alamat']; ?></td>
+                                                <td><?= $row['email']; ?></td>
+                                                <td><?= $row['no_handphone']; ?></td>
                                                 <td>
-                                                    <a class="mdi mdi-grease-pencil btn-lg" data-toggle="modal" data-target="#modalEditBarang<?= $row['id']; ?>"></a>
-                                                    <a class="mdi mdi-delete-circle btn-lg" data-toggle="modal" data-target="#modalDeleteBarang<?= $row['id']; ?>"></a>
+                                                    <!-- <a class="mdi mdi-grease-pencil btn-lg" data-toggle="modal" data-target="#modalEditPesanan<?= $row['id']; ?>"></a> -->
+                                                    <a class="mdi mdi-delete-circle btn-lg" data-toggle="modal" data-target="#modalDeletePesanan<?= $row['id']; ?>"></a>
                                                 </td>
                                             </tr>
                                             
                                             <!-- Modal delete -->
-                                            <!-- <div class="modal fade" id="modalDeletePesanan<?= $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal fade" id="modalDeletePesanan<?= $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
-                                                        <form action="http://localhost/kampus/uts_ecommerce/admin/api/deleteBarang.php" method="POST">
+                                                        <form action="http://localhost/uas_web/admin/api/deletePesanan.php" method="POST">
                                                             <input type="hidden" value="<?= $row['id']; ?>" name="id">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">Delete barang</h5>
+                                                                <h5 class="modal-title" id="exampleModalLabel">Delete pesanan</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                             </div>
                                                             <div class="modal-body">Apakah anda yakin ingin menghapus data ini ?</div>
@@ -166,11 +186,11 @@
                                                         </form>
                                                     </div>
                                                 </div>
-                                            </div> -->
+                                            </div>
                                             <!-- End modal delete -->
 
                                             <!-- Modal Edit -->
-                                            <!-- <div class="modal fade" id="modalEditBarang<?= $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <!-- <div class="modal fade" id="modalEditPesanan<?= $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
@@ -179,31 +199,48 @@
                                                             <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
-                                                        <form action="http://localhost/kampus/uts_ecommerce/admin/api/updateBarang.php" method="POST" enctype="multipart/form-data">
+                                                        <form action="http://localhost/uas_web/admin/api/updatePesanan.php" method="POST" enctype="multipart/form-data">
                                                             <div class="modal-body">
                                                                 <input type="hidden" name="id" value="<?= $row['id']; ?>">
                                                                 <div class="form-group">
+                                                                    <label for="">Nama customer</label>
+                                                                    <input type="text" name="nama_customer" class="form-control" value="<?= $row['nama_customer']; ?>" readonly>
+                                                                </div>
+                                                                <div class="form-group">
                                                                     <label for="">Nama barang</label>
-                                                                    <input type="text" name="nama_barang" class="form-control" value="<?= $row['nama_barang']; ?>">
+                                                                    <input type="text" name="nama_barang" class="form-control" value="<?= $row['nama_barang']; ?>" readonly>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="">Harga barang</label>
-                                                                    <input type="number" name="harga_barang" class="form-control" value="<?= $row['harga_barang']; ?>">
+                                                                    <label for="">Qty barang</label>
+                                                                    <input type="text" name="qty_barang" class="form-control" value="<?= $row['qty_barang']; ?>">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="">Jumlah barang</label>
-                                                                    <input type="number" name="stok_barang" class="form-control" value="<?= $row['stok_barang']; ?>">
+                                                                    <label for="">Grand total</label>
+                                                                    <input type="text" name="grand_total" class="form-control" value="<?= $row['grand_total']; ?>">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="">Deskripsi barang</label>
-                                                                    <textarea name="deskripsi_barang" class="form-control" placeholder="Masukan deskripsi barang"><?= $row['deskripsi_barang'] ?></textarea>
+                                                                    <label for="">Metode pembayaran</label>
+                                                                    <select name="metode_pembayaran" id="" class="form-control">
+                                                                        <?php if ($row['metode_pembayaran'] == "Cash"): ?>
+                                                                            <option value="<?= $row['metode_pembayaran']; ?>"><?= $row['metode_pembayaran']; ?></option>
+                                                                            <option value="Transfer">Transfer</option>
+                                                                            <?php elseif ($row['metode_pembayaran'] == "Transfer"): ?>
+                                                                            <option value="<?= $row['metode_pembayaran']; ?>"><?= $row['metode_pembayaran']; ?></option>
+                                                                            <option value="Cash">Cash</option>
+                                                                        <?php endif ?>
+                                                                    </select>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="">Gambar</label><br />
-                                                                    <img src="dir/<?= $row['gambar']; ?>" width="100" height="100" class="img img-circle" id="gambar"><br /><br />
-                                                                    <input type="checkbox" name="check" id="ubah-gambar"> Checklist apabila ingin merubah gambar <br /><br />
-                                                                    <input type="file" name="gambar" class="form-control" id="lihatGambar">
-                                                                    <input type="file" name="gambar" class="form-control">
+                                                                    <label for="">Alamat</label>
+                                                                    <textarea name="alamat" id="" cols="30" rows="10" class="form-control"><?= $row['alamat']; ?></textarea>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="">Email</label>
+                                                                    <input type="email" name="email" class="form-control" value="<?= $row['email']; ?>" readonly>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="">No handphone</label>
+                                                                    <input type="number" name="no_handphone" class="form-control" value="<?= $row['no_handphone']; ?>" readonly>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
