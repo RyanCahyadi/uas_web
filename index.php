@@ -69,31 +69,31 @@
         </div>
       </div>
     </nav>
-
+  
     <div class="container">
       <div class="col-md-12">  
         <div id="carouselEControls" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner">
             <div class="slide">
               <div class="carousel-item active">
-                <img src="image/fashionwanita/baju1.jpg" class="d-block w-100" alt="...">
+                <img src="image/slide-1.jpg" class="d-block w-100" alt="...">
               </div>
               <div class="carousel-item">
-                <img src="image/fashionpria/celana.jpg" class="d-block w-100" alt="...">
+                <img src="image/slide-2.jpg" class="d-block w-100" alt="...">
               </div>
               <div class="carousel-item">
-                <img src="image/fashionwanita/baju5.jpg" class="d-block w-100" alt="...">
+                <img src="image/slide-3.jpg" class="d-block w-100" alt="...">
               </div>
               <div class="carousel-item">
-                <img src="image/hoby/sepatu.jpg" class="d-block w-100" alt="...">
+                <img src="image/slide-4.jpg" class="d-block w-100" alt="...">
               </div>
             </div>
           </div>
-          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+          <a class="carousel-control-prev" href="#" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
           </a>
-          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+          <a class="carousel-control-next" href="#" role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
           </a>
